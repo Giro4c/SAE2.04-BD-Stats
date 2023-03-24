@@ -1,5 +1,16 @@
 -- Partie 2 : Interrogation et Mise à jour de la BD IMMO
 
+select idp, count(distinct categorie)
+from bien
+group by idp
+order by idp asc;
+
+select idebien, categorie, type, ide, designation
+from bien
+join espace
+on idebien = ide
+order by idebien asc;
+
 -- Q1 :
 
 SELECT CATEGORIE, COUNT(*)
@@ -12,9 +23,11 @@ GROUP BY TYPE;
 
 -- Q2 :
 
-SELECT IDE, DESIGNATION
+SELECT IDE, LPAD('-', 2*LEVEL, ' ') || DESIGNATION
 FROM ESPACE
-CONNECT BY PRIOR IDE = IDERATTACH;
+WHERE IDE != 945
+CONNECT BY PRIOR IDE = IDERATTACH
+START WITH IDE = 945;
 
 -- Q3 :
 
